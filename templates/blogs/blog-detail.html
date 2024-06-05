@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="main-content">
+        <div id="wrapper-site">
+            <div id="content-wrapper">
+                <div id="main">
+                    <div class="page-home">
+
+                        <!-- breadcrumb -->
+                        <nav class="breadcrumb-bg">
+                            <div class="container no-index">
+                                <div class="breadcrumb">
+                                    <ol>
+                                        <li>
+                                            <a href="#">
+                                                <span>Home</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <span>Living Room</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <span>Sofa</span>
+                                            </a>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </nav>
+                        <div class="container">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="sidebar-3 sidebar-collection col-lg-3 col-md-3 col-sm-4">
+
+                                        <!-- category -->
+                                        <div class="sidebar-block">
+                                            <div class="title-block">Categories</div>
+                                            <div class="block-content">
+                                                {% for cat in category %}
+                                                <div class="cateTitle hasSubCategory open level1">
+                                                    <a class="cateItem" href="#">{{ cat.name }}</a>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+
+                                        <!-- recent posts -->
+                                        <div class="sidebar-block">
+                                            <div class="title-block">Recent Posts</div>
+                                            <div class="post-item-content">
+                                                {% for blog in famous_blogs %}
+                                                <div>
+                                                    <div class="late-item first-child">
+                                                        <a href="{% url 'blogs:detail' pk=blog.id %}">
+                                                            <p class="content-title">{{ blog.title }}</p>
+                                                        </a>
+                                                        <span>
+                                                            <i class="zmdi zmdi-comments"></i>13 comment
+                                                        </span>
+                                                        <span>
+                                                            <i class="zmdi zmdi-calendar-note"></i>{{ blog.created_at }}
+                                                        </span>
+                                                        <p class="description">{{blog.short_info}}
+                                                        </p>
+                                                        <p class="remove">
+                                                            <a href="{% url 'blogs:detail' pk=blog.id %}">READ MORE</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+
+                                        <!-- product tag -->
+                                        <div class="sidebar-block product-tags">
+                                            <div class="title-block">
+                                                Blog Tags
+                                            </div>
+                                            <div class="block-content">
+                                                <ul class="listSidebarBlog list-unstyled">
+                                                    {% for tag in tags %}
+                                                    <li>
+                                                        <a href="#" title="Show products matching tag Hot Trend">{{ tag.name }}</a>
+                                                    </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <!-- advertising -->
+                                        <div class="sidebar-block group-image-special">
+                                            <div class="effect">
+                                                <a href="#">
+                                                    <img class="img-fluid" src="{% static 'img/blog/advertising.jpg' %}" alt="banner-2" title="banner-2">
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-8 col-lg-9 col-md-9 flex-xs-first main-blogs">
+                                        <h3>{{ blog.title }}</h3>
+                                        <div class="hover-after">
+                                            <img src="{{ blog.image.url }}" alt="img" class="img-fluid">
+                                        </div>
+                                        <div class="late-item">
+                                            <p>
+                                                {{ blog.content }}
+                                            </p>
+                                            <p>
+                                            <div class="border-detail">
+                                                <p class="post-info float-left">
+                                                    <span>{{ blog.created_at }}</span>
+                                                    <span>113 Comments</span>
+                                                    <span>{{ blog.author.name }}</span>
+                                                </p>
+                                                <div class="btn-group">
+                                                    <a href="#">
+                                                        <i class="zmdi zmdi-share"></i>
+                                                        <span>Share</span>
+                                                    </a>
+                                                    <a href="#" class="email">
+                                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                        <span>SEN TO A FRIEND</span>
+                                                    </a>
+                                                    <a href="#" class="print">
+                                                        <i class="zmdi zmdi-print"></i>
+                                                        <span>Print</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="admin">
+                                            <img src="{{ blog.author.image.url }}" alt="img" class="float-left right">
+                                            <div class="info">
+                                                <p>
+                                                    <a href="#">
+                                                        <span class="content-title">
+                                                            {{ blog.author.name }}
+                                                        </span>
+                                                    </a>
+                                                    <span>{{ blog.author.position }}, {{ blog.author.profession }}</span>
+                                                </p>
+                                                <p class="descript">
+                                                   {{ blog.author.about }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="related">
+                                            <h2 class="title-block">Related News</h2>
+                                            <div class="main-blogs">
+                                                <div class="row">
+                                                    {% for blog in related_blogs %}
+                                                    <div class="col-md-4">
+                                                        <div class="hover-after">
+                                                            <a href="blog-detail.html">
+                                                                <img src="{{ blog.image.url }}" alt="img" class="img-fluid">
+                                                            </a>
+                                                        </div>
+                                                        <div class="late-item">
+                                                            <p class="content-title">
+                                                                <a href="blog-detail.html">{{ blog.title }}</a>
+                                                            </p>
+                                                            <p class="description">{{ blog.short_info }}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
